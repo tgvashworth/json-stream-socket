@@ -1,0 +1,23 @@
+{
+  "name": "json-stream-socket",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "json-stream-socket": "json-stream-socket"
+  },
+  "scripts": {},
+  "author": "",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "through": "~2.3.4",
+    "JSONStream": "~0.7.1",
+    "stream-inspect": "0.0.2",
+    "split": "~0.2.10",
+    "websocket-stream": "~0.3.3",
+    "ws": "~0.4.31",
+    "pass-stream": "~0.1.3",
+    "stream": "0.0.1",
+    "event-stream": "~3.0.16"
+  }
+}

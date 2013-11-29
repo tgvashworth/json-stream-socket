@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+var http = require('http');
+var WebSocketServer = require('ws').Server;
+var websocket = require('websocket-stream');
+var es = require('event-stream');
+var tr = require('through');
+var split = require('split');
+
+var buffer = [];
+
+var splitStream = process.stdin.pipe(split());
+splitStream.pipe(tr(function (d) { this.queue(d + '\n'); })).pipe(process.stdout);
+splitStream.on('data', function (line) {
+  buffer.push(line);
+});
+
+var server = http.createServer().listen(process.argv[2]);
+var wss = new WebSocketServer({ server: server })
+wss.on('connection', function(ws) {
+  var stream = websocket(ws);
+  splitStream.pipe(stream);
+  es.readArray(buffer).on('data', function (data) {
+    stream.write(data);
+  });
+});
